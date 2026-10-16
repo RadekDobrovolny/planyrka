@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "planyrka",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "tools/server.py",
+        "8137"
+      ],
+      "port": 8137
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+ "zdroj": "assets/puvodni/09-nakupak.m4a",
+ "vystup": "assets/strih/09-nakupak.flac",
+ "delka_pred": 20.05,
+ "delka_po": 15.63,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 1.33,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-40 dB proti řeči) ztišen o 15 dB",
+   "start": 4.57,
+   "end": 4.89,
+   "new_at": 3.24
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-38 dB proti řeči) ztišen o 15 dB",
+   "start": 6.35,
+   "end": 7.29,
+   "new_at": 5.02
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-38 dB proti řeči) ztišen o 15 dB",
+   "start": 12.55,
+   "end": 13.08,
+   "new_at": 11.22
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-41 dB proti řeči) ztišen o 15 dB",
+   "start": 13.96,
+   "end": 14.15,
+   "new_at": 12.63
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-36 dB proti řeči) ztišen o 15 dB",
+   "start": 16.18,
+   "end": 19.11,
+   "new_at": 14.85
+  },
+  {
+   "typ": "rucne",
+   "text": "pauza a výdech na konci",
+   "start": 16.96,
+   "end": 20.053,
+   "new_at": 15.63
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "jinak",
+   "text": "stráně  (scénář: stráni)",
+   "start": 3.602,
+   "end": 4.003,
+   "new_at": 2.272
+  },
+  {
+   "typ": "jinak",
+   "text": "psíci.  (scénář: pejsci.)",
+   "start": 5.744,
+   "end": 6.164,
+   "new_at": 4.414
+  },
+  {
+   "typ": "chybi",
+   "text": "krásně",
+   "start": 13.329,
+   "end": 13.829,
+   "new_at": 11.999
+  },
+  {
+   "typ": "navic",
+   "text": "posečeno",
+   "start": 14.209,
+   "end": 14.85,
+   "new_at": 12.879
+  },
+  {
+   "typ": "jinak",
+   "text": "zkotačivo.  (scénář: skotačivo.)",
+   "start": 15.37,
+   "end": 16.011,
+   "new_at": 14.04
+  }
+ ],
+ "prepis": "Dole se nakupuje a ve stráně okolo se chodí venčit psíci. Teď na podzim sem chodí rodinky a chtějí, abych jim na pár minut podržel draka nad hlavou. Je tu rušno, posečeno a zkotačivo.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "Dole se nakupuje a ve stráně okolo se chodí venčit psíci. Teď na podzim sem chodí rodinky a chtějí, abych jim na pár minut podržel draka nad hlavou. Je tu rušno, posečeno a zkotačivo."
+}

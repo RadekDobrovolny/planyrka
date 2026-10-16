@@ -1,0 +1,24 @@
+{
+  "_popis": "Ruční střihy, které automatika nenašla. Časy v sekundách v PŮVODNÍ nahrávce: [od, do, poznámka].",
+  "02-parkoviste": [
+    [
+      18.32,
+      27.38,
+      "první pokus „Někdo tady auto nechá“ a pauza"
+    ]
+  ],
+  "08-rezidence": [
+    [
+      17.78,
+      21.55,
+      "první pokus „V tomhle mám“ a pauza"
+    ]
+  ],
+  "09-nakupak": [
+    [
+      16.92,
+      20.05,
+      "pauza a výdech na konci"
+    ]
+  ]
+}

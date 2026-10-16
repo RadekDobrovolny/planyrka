@@ -1,0 +1,352 @@
+:root {
+  --cardboard: #a97b52;
+  --ink: #1b1410;                 /* slovo, které ještě nezaznělo */
+  --light: #fffaf2;               /* rozsvícené slovo */
+
+  /* Záře slov: vždy 4 stíny, aby se mezi stavy plynule interpolovalo */
+  --glow-off:  0 0 2px rgba(255, 250, 240, 0), 0 0 10px rgba(255, 246, 230, 0), 0 0 24px rgba(255, 240, 215, 0), 0 0 48px rgba(255, 232, 200, 0);
+  --glow-soft: 0 0 2px rgba(255, 250, 240, .55), 0 0 10px rgba(255, 246, 230, .45), 0 0 24px rgba(255, 240, 215, .28), 0 0 48px rgba(255, 232, 200, .14);
+  --glow-hot:  0 0 2px rgba(255, 255, 255, .95), 0 0 10px rgba(255, 250, 240, .9), 0 0 24px rgba(255, 244, 225, .65), 0 0 48px rgba(255, 236, 210, .4);
+
+  --size-play: clamp(140px, 30vmin, 260px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--cardboard);
+  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Jemná vinětace – světlo jako by dopadalo doprostřed kartonu */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 70% at 50% 46%, transparent 45%, rgba(48, 26, 10, .32) 100%);
+}
+
+/* Karton leží ve stejné vrstvě (stacking contextu) jako obrázky – jen tak se s ním můžou násobit. */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  background: var(--cardboard) url("../assets/karton.webp") center / cover no-repeat;
+}
+
+.intro,
+.scene {
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ---------- Úvod: tlačítko Play z mikroteček ---------- */
+
+.intro {
+  display: grid;
+  place-items: center;
+}
+
+.play {
+  position: relative;
+  width: var(--size-play);
+  height: var(--size-play);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.play:disabled { cursor: default; }
+
+.play:focus { outline: none; }
+
+.play:focus-visible::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  border: 1px dashed rgba(27, 20, 16, .35);
+}
+
+/* Plátna jsou větší než tlačítko, aby záře a rozfoukané tečky neměly ořez */
+.play canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--size-play) * 2);
+  height: calc(var(--size-play) * 2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Záře kolem každé tečky (sílu řídí průhlednost plátna) – širší svit dělá aureola,
+   příliš široký stín by tečky slil v mlhu */
+.play__light {
+  filter:
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 4px rgba(255, 250, 238, .65))
+    drop-shadow(0 0 11px rgba(255, 244, 225, .38));
+}
+
+/* Měkké světlo, které tlačítko vrhá na karton */
+.play__halo {
+  position: absolute;
+  inset: -45%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 244, 222, .42) 0%, rgba(255, 240, 215, .15) 36%, transparent 66%);
+  opacity: var(--halo, 0);
+}
+
+/* ---------- Scéna ---------- */
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 4.5vh, 3rem);
+  padding: 5vh 16px 7vh;
+}
+
+.scene[hidden] { display: none; }
+
+/* pevná plocha pro obrázek – titulky zůstávají ve všech scénách na stejném místě */
+.scene__figure {
+  margin: 0;
+  width: min(80vw, 960px);
+  height: 56vh;
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* uhel „vpitý“ do kartonu: bílá = karton, tmavá kresba ho ztmaví */
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.scene__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+/* ---------- Závěrečné titulky ---------- */
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.9rem, 3vh, 1.8rem);
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.credits[hidden] { display: none; }
+
+.credits__title {
+  margin: 0 0 .3em;
+  font-size: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
+  line-height: 1;
+  font-weight: 600;
+}
+
+.credits__line {
+  margin: 0;
+  font-size: clamp(1.2rem, .95rem + 1.1vw, 1.8rem);
+  line-height: 1.3;
+  max-width: 30em;
+}
+
+.credits__label {
+  display: block;
+  margin-bottom: .2em;
+  font-size: .6em;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* Textová tlačítka (Přehrát znovu, Pauza) – ikonka z teček + text, rozsvítí se jako slova v titulcích */
+.glow-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .6em;
+  padding: .55em 1.1em;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: clamp(1.05rem, .9rem + .6vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--ink);
+  text-shadow: var(--glow-off);
+  cursor: pointer;
+  transition: color .45s ease, text-shadow .7s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.glow-button svg {
+  flex: none;
+  width: .8em;
+  height: .8em;
+  fill: currentColor;
+  transition: filter .7s ease;
+}
+
+.glow-button:hover,
+.glow-button:focus-visible {
+  color: var(--light);
+  text-shadow: var(--glow-soft);
+  outline: none;
+}
+
+.glow-button:hover svg,
+.glow-button:focus-visible svg {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, .9)) drop-shadow(0 0 4px rgba(255, 248, 235, .6));
+}
+
+.replay {
+  margin-top: clamp(1rem, 4vh, 2.4rem);
+  opacity: 0;
+}
+
+/* Pauza: vpravo dole, v řadě se stavovými tečkami */
+.pause {
+  position: fixed;
+  z-index: 3;
+  right: 10px;
+  bottom: calc(2px + env(safe-area-inset-bottom, 0px));
+  font-size: 1rem;
+  letter-spacing: .05em;
+  padding: .6em .9em;
+  opacity: 0;
+  pointer-events: none;
+  transition: color .45s ease, text-shadow .7s ease, opacity 1.4s ease;
+}
+
+.pause.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  /* na mobilu jen ikonka (text zůstane pro čtečky) */
+  .pause span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .pause { padding: 1em; }            /* dotyková plocha ~44 px */
+}
+
+/* ---------- Stavový řádek ---------- */
+
+.progress {
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  gap: 11px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.progress.is-visible { opacity: 1; }
+
+.progress__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(46, 43, 40, .62);
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0), 0 0 0 rgba(255, 248, 235, 0), 0 0 0 rgba(255, 240, 215, 0);
+  transition: background-color 1.4s ease, box-shadow 1.4s ease;
+}
+
+.progress__dot.is-done,
+.progress__dot.is-current {
+  background: var(--light);
+  box-shadow: 0 0 2px rgba(255, 255, 255, .8), 0 0 6px rgba(255, 248, 235, .4), 0 0 0 rgba(255, 240, 215, 0);
+}
+
+/* aktuální scéna dýchá ve stejném rytmu jako úvodní tlačítko */
+.progress__dot.is-current { animation: dot-breathe 5.25s ease-in-out infinite; }
+
+@keyframes dot-breathe {
+  0%, 100% { box-shadow: 0 0 2px rgba(255, 255, 255, .7), 0 0 5px rgba(255, 248, 235, .3), 0 0 0 rgba(255, 240, 215, 0); }
+  41%      { box-shadow: 0 0 3px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 248, 235, .75), 0 0 20px rgba(255, 240, 215, .4); }
+}
+
+.is-paused .progress__dot.is-current { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__dot.is-current { animation: none; }
+}
+
+/* ---------- Titulky ---------- */
+
+.subtitles {
+  margin: 0;
+  width: min(46rem, 100%);
+  /* pevná výška pro 3 řádky – obraz nad titulky neposkakuje */
+  height: calc(3 * 1.32em);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(1.35rem, 0.95rem + 1.6vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: .005em;
+  text-wrap: balance;
+  opacity: 0;
+}
+
+.subtitles__text { max-width: 100%; }
+
+.word {
+  color: var(--ink);
+  text-shadow: var(--glow-off);
+  transition: color .35s ease, text-shadow .35s ease;
+}
+
+/* slovo zaznělo – zůstává rozsvícené, záře pomalu dosedá */
+.word.is-lit {
+  color: var(--light);
+  text-shadow: var(--glow-soft);
+  transition: color .22s ease-out, text-shadow 1.1s ease-out;
+}
+
+/* právě vyslovované slovo */
+.word.is-lit.is-now {
+  text-shadow: var(--glow-hot);
+  transition: color .16s ease-out, text-shadow .16s ease-out;
+}
+
+@media (max-width: 600px) {
+  .scene__figure { width: 88vw; height: 48vh; }
+  .subtitles { height: calc(4 * 1.32em); }
+}

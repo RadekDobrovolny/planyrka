@@ -1,0 +1,160 @@
+{
+ "zdroj": "assets/puvodni/02-parkoviste.m4a",
+ "vystup": "assets/strih/02-parkoviste.flac",
+ "delka_pred": 57.09,
+ "delka_po": 36.57,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 1.23,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-42 dB proti řeči) ztišen o 15 dB",
+   "start": 4.1,
+   "end": 4.67,
+   "new_at": 2.87
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-37 dB proti řeči) ztišen o 15 dB",
+   "start": 5.73,
+   "end": 6.49,
+   "new_at": 4.5
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-40 dB proti řeči) ztišen o 15 dB",
+   "start": 14.48,
+   "end": 15.55,
+   "new_at": 13.25
+  },
+  {
+   "typ": "rucne",
+   "text": "první pokus „Někdo tady auto nechá“ a pauza",
+   "start": 18.33,
+   "end": 27.41,
+   "new_at": 17.1
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-32 dB proti řeči) ztišen o 15 dB",
+   "start": 24.66,
+   "end": 27.46,
+   "new_at": 17.1
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-35 dB proti řeči) ztišen o 15 dB",
+   "start": 30.03,
+   "end": 30.37,
+   "new_at": 19.72
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-47 dB proti řeči) ztišen o 15 dB",
+   "start": 32.12,
+   "end": 35.23,
+   "new_at": 21.81
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-44 dB proti řeči) ztišen o 15 dB",
+   "start": 39.26,
+   "end": 39.45,
+   "new_at": 28.95
+  },
+  {
+   "typ": "opakovani",
+   "text": "Ty mám rád, často mě pustí domů.",
+   "start": 41.02,
+   "end": 48.35,
+   "new_at": 30.685
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-29 dB proti řeči) ztišen o 15 dB",
+   "start": 43.64,
+   "end": 48.73,
+   "new_at": 30.685
+  },
+  {
+   "typ": "ticho",
+   "text": "ticho na konci",
+   "start": 54.26,
+   "end": 57.088,
+   "new_at": 36.57
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "jinak",
+   "text": "planírkou.  (scénář: Planýrkou.)",
+   "start": 3.18,
+   "end": 3.861,
+   "new_at": 1.95
+  },
+  {
+   "typ": "jinak",
+   "text": "auta,  (scénář: aut,)",
+   "start": 7.281,
+   "end": 7.521,
+   "new_at": 6.051
+  },
+  {
+   "typ": "jinak",
+   "text": "přijede  (scénář: jede)",
+   "start": 11.202,
+   "end": 11.482,
+   "new_at": 9.972
+  },
+  {
+   "typ": "chybi",
+   "text": "nechá",
+   "start": 27.984,
+   "end": 28.484,
+   "new_at": 17.674
+  },
+  {
+   "typ": "navic",
+   "text": "nechá,",
+   "start": 28.664,
+   "end": 28.764,
+   "new_at": 18.354
+  },
+  {
+   "typ": "navic",
+   "text": "pomalu",
+   "start": 31.024,
+   "end": 31.364,
+   "new_at": 20.714
+  },
+  {
+   "typ": "jinak",
+   "text": "něm  (scénář: autě)",
+   "start": 36.945,
+   "end": 37.045,
+   "new_at": 26.635
+  },
+  {
+   "typ": "navic",
+   "text": "s",
+   "start": 52.747,
+   "end": 52.767,
+   "new_at": 35.082
+  },
+  {
+   "typ": "jinak",
+   "text": "kulinou.  (scénář: skulinou.)",
+   "start": 52.847,
+   "end": 53.287,
+   "new_at": 35.182
+  }
+ ],
+ "prepis": "Rád se tu poletuju, nad planírkou. Tady začíná. Stojí tu hodně auta, ale parkoviště to není. Někdo tady auto nechá, když přijede do Brna na návštěvu a za den, dva, si ho vyzvedne. Je to tu blízko. Někdo tady auto nechá, co už nepoužívá, až se z něj pomalu stane vrak. A je tu i pár takových, co v něm bydlí. Zaparkují obytňák, anebo už ani nejezdí. Ty mám rád, často mě pustí domů. Ty mám rád. Často mě pustí domů, anebo se jen tak protáhnu s kulinou.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "Rád se tu poletuju, nad planýrkou. Tady začíná. Stojí tu hodně auta, ale parkoviště to není. Někdo tady auto nechá, když přijede do Brna na návštěvu a za den, dva si ho vyzvedne. Je to tu blízko. Někdo tady nechá auto, co už nepoužívá, až se z něj pomalu stane vrak. A je tu i pár takových, co v něm bydlí. Zaparkují obytňák, anebo už ani nejezdí. Ty mám rád. Často mě pustí domů, anebo se jen tak protáhnu s kulinou."
+}

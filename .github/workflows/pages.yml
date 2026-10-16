@@ -1,0 +1,63 @@
+# Nasazení webu na GitHub Pages při každém pushi do větve main (nebo ručně v záložce Actions).
+#
+# Jednorázové nastavení repozitáře:
+#   Settings → Pages → Build and deployment → Source: GitHub Actions
+name: Nasadit na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# jedno nasazení najednou; rozběhnuté se nepřerušuje
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Sestavit web
+        # Jen to, co stránka potřebuje – bez originálů (assets/puvodni), prostříhaných FLAC
+        # (assets/strih), nástrojů (tools) a pomocných stránek pro kontrolu zvuku.
+        run: |
+          mkdir -p _site/assets
+          cp index.html _site/
+          cp -r css js data _site/
+          cp assets/*.webp assets/*.m4a _site/assets/
+
+      - name: Zkontrolovat, že nic nechybí
+        run: |
+          missing=0
+          for f in $(grep -ohE "assets/[A-Za-z0-9._-]+\.(webp|m4a|png|jpg|mp3)" index.html css/style.css data/scenes.js | sort -u); do
+            if [ ! -f "_site/$f" ]; then
+              echo "::error::Chybí $f"
+              missing=1
+            fi
+          done
+          echo "Velikost webu: $(du -sh _site | cut -f1)"
+          exit $missing
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

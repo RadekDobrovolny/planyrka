@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planýrka</title>
+  <meta name="description" content="Poetický fejeton">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+
+  <link rel="preload" href="assets/karton.webp" as="image">
+  <link rel="stylesheet" href="css/style.css?v=11">
+</head>
+<body>
+  <main class="stage">
+
+    <!-- Úvodní obrazovka: tlačítko Play složené z mikroteček -->
+    <section class="intro" id="intro">
+      <button class="play" id="play" type="button" aria-label="Přehrát">
+        <span class="play__halo" aria-hidden="true"></span>
+        <canvas class="play__dots" aria-hidden="true"></canvas>
+        <canvas class="play__light" aria-hidden="true"></canvas>
+      </button>
+    </section>
+
+    <!-- Scéna: obrázek + titulky -->
+    <section class="scene" id="scene" hidden>
+      <figure class="scene__figure">
+        <img class="scene__image" id="scene-image" alt="">
+      </figure>
+      <p class="subtitles" id="subtitles" aria-live="off"></p>
+    </section>
+
+    <!-- Závěrečné titulky -->
+    <section class="credits" id="credits" hidden></section>
+
+  </main>
+
+  <!-- Stavový řádek: tečka za každou scénu -->
+  <div class="progress" id="progress" role="img"></div>
+
+  <!-- Pauza / Pokračovat -->
+  <button class="glow-button pause" id="pause" type="button" disabled></button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="data/scenes.js?v=7"></script>
+  <script src="js/play-button.js?v=6"></script>
+  <script src="js/app.js?v=9"></script>
+</body>
+</html>

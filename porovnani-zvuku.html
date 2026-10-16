@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Srovnání zvuku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #1b1410; --ink-soft: rgba(27, 20, 16, .64); --line: rgba(27, 20, 16, .22); --light: #fffaf2; --paper: rgba(255, 250, 242, .5); }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: #a97b52 url("assets/karton.webp") center / cover fixed;
+      color: var(--ink);
+      font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      padding: 32px 16px 64px;
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    h1, h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; margin: 0; }
+    h1 { font-size: 2.4rem; }
+    .intro { color: var(--ink-soft); margin: .4em 0 1em; }
+    label.match { display: inline-flex; gap: .5em; align-items: center; cursor: pointer; margin-bottom: 1.4em; }
+    .scene { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+    .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .scene h2 { font-size: 1.45rem; min-width: 11.5em; }
+    .versions { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .versions button { font: inherit; padding: 5px 14px; border: 0; background: rgba(255,255,255,.35); color: var(--ink); cursor: pointer; }
+    .versions button[aria-pressed="true"] { background: var(--ink); color: var(--light); }
+    .transport { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .toggle { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: rgba(255,255,255,.4); cursor: pointer; display: grid; place-items: center; color: var(--ink); }
+    .toggle svg { width: 16px; height: 16px; fill: currentColor; }
+    input[type="range"] { flex: 1; accent-color: #2e2b28; }
+    .time { flex: none; width: 3.4em; font-variant-numeric: tabular-nums; color: var(--ink-soft); text-align: right; }
+    kbd { font-family: inherit; border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Srovnání zvuku</h1>
+    <p class="intro">Prostříhaná nahrávka <b>před úpravou</b> a <b>po úpravě</b> (korekce barvy hlasu, de-esser, komprese,
+      hlasitost −16 LUFS). Obě verze hrají současně – přepínej klidně uprostřed věty.
+      Klávesy <kbd>1</kbd> / <kbd>2</kbd> přepínají v právě hrající scéně.</p>
+    <label class="match"><input type="checkbox" id="match" checked> Srovnat hlasitost (upravené verze jsou o 8–11 dB hlasitější)</label>
+    <div id="list"></div>
+  </main>
+
+  <script src="data/scenes.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      const LUFS = {"01-vitr": {"pred": -24.5, "po": -16.1}, "02-parkoviste": {"pred": -25.9, "po": -16.1}, "03-boby": {"pred": -25.7, "po": -16.2}, "04-skejt": {"pred": -24.8, "po": -16.1}, "05-zimni-stadion": {"pred": -24.5, "po": -16.1}, "06-fotbalovy-stadion": {"pred": -25.3, "po": -16.1}, "07-lesiky": {"pred": -24.5, "po": -16.1}, "08-rezidence": {"pred": -24.3, "po": -16.1}, "09-nakupak": {"pred": -27.4, "po": -16.1}, "10-vyhlidka": {"pred": -25.0, "po": -16.1}};
+      const PLAY = '<path d="M5 3v18l15-9z"/>';
+      const PAUSE = '<path d="M5 3h5v18H5zM14 3h5v18h-5z"/>';
+      const match = document.getElementById('match');
+      const players = [];
+      let active = null;
+
+      function makePlayer(scene) {
+        if (!scene.image) return;
+        const slug = scene.image.split('/').pop().replace(/\.\w+$/, '');
+        if (!LUFS[slug]) return;
+        const el = document.createElement('section');
+        el.className = 'scene';
+        el.innerHTML = `
+          <div class="row"><h2></h2>
+            <span class="versions"><button type="button" data-v="0" aria-pressed="false">před úpravou</button><button type="button" data-v="1" aria-pressed="true">po úpravě</button></span>
+          </div>
+          <div class="transport">
+            <button class="toggle" type="button" aria-label="Přehrát"><svg viewBox="0 0 24 24">${PLAY}</svg></button>
+            <input type="range" min="0" max="1" step="0.01" value="0" aria-label="Pozice">
+            <span class="time">0:00</span>
+          </div>`;
+        el.querySelector('h2').textContent = scene.title;
+        document.getElementById('list').append(el);
+
+        const p = {
+          el, slug, v: 1,
+          audios: [new Audio(`assets/strih/${slug}.flac`), new Audio(`assets/${slug}.m4a`)],
+          btns: [...el.querySelectorAll('.versions button')],
+          toggle: el.querySelector('.toggle'),
+          seek: el.querySelector('input[type="range"]'),
+          time: el.querySelector('.time'),
+        };
+        p.audios.forEach((a) => { a.preload = 'metadata'; });
+        p.audios[0].addEventListener('loadedmetadata', () => { p.seek.max = p.audios[0].duration; });
+        p.lead = () => p.audios[p.v];
+        p.volumes = () => {
+          const gain = match.checked ? Math.pow(10, (LUFS[slug].pred - LUFS[slug].po) / 20) : 1;
+          p.audios[0].volume = 1;
+          p.audios[1].volume = Math.min(1, gain);
+          p.audios.forEach((a, i) => { a.muted = i !== p.v; });
+        };
+        p.select = (v) => {
+          const t = p.lead().currentTime;
+          p.v = v;
+          p.audios.forEach((a) => { if (Math.abs(a.currentTime - t) > 0.03) a.currentTime = t; });
+          p.volumes();
+          p.btns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === v)));
+        };
+        p.icon = (playing) => { p.toggle.querySelector('svg').innerHTML = playing ? PAUSE : PLAY; };
+        p.play = () => {
+          if (active && active !== p) active.pause();
+          active = p;
+          const t = p.lead().currentTime;
+          p.volumes();
+          p.audios.forEach((a) => { a.currentTime = t; a.play().catch(() => {}); });
+          p.icon(true);
+        };
+        p.pause = () => { p.audios.forEach((a) => a.pause()); p.icon(false); };
+        p.toggle.addEventListener('click', () => (p.lead().paused ? p.play() : p.pause()));
+        p.btns.forEach((b, i) => b.addEventListener('click', () => p.select(i)));
+        p.seek.addEventListener('input', () => p.audios.forEach((a) => { a.currentTime = +p.seek.value; }));
+        p.audios.forEach((a) => a.addEventListener('ended', () => {
+          if (a === p.lead()) { p.pause(); p.audios.forEach((x) => { x.currentTime = 0; }); }
+        }));
+        players.push(p);
+      }
+
+      (window.SCENES || []).forEach(makePlayer);
+      match.addEventListener('change', () => players.forEach((p) => p.volumes()));
+
+      setInterval(() => {
+        players.forEach((p) => {
+          const t = p.lead().currentTime;
+          if (document.activeElement !== p.seek) p.seek.value = t;
+          p.time.textContent = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+          if (!p.lead().paused) {
+            const other = p.audios[1 - p.v];
+            if (Math.abs(other.currentTime - t) > 0.04) other.currentTime = t;
+          }
+        });
+      }, 250);
+
+      document.addEventListener('keydown', (e) => {
+        if (!active || (e.key !== '1' && e.key !== '2')) return;
+        active.select(+e.key - 1);
+      });
+    })();
+  </script>
+</body>
+</html>

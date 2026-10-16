@@ -1,0 +1,90 @@
+{
+ "zdroj": "assets/puvodni/07-lesiky.m4a",
+ "vystup": "assets/strih/07-lesiky.flac",
+ "delka_pred": 26.54,
+ "delka_po": 19.9,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 0.78,
+   "new_at": 0.0
+  },
+  {
+   "typ": "opakovani",
+   "text": "V houští, ehm,",
+   "start": 0.36,
+   "end": 4.67,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-50 dB proti řeči) ztišen o 15 dB",
+   "start": 8.12,
+   "end": 8.93,
+   "new_at": 3.45
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-50 dB proti řeči) ztišen o 15 dB",
+   "start": 11.13,
+   "end": 11.46,
+   "new_at": 6.46
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-38 dB proti řeči) ztišen o 15 dB",
+   "start": 13.2,
+   "end": 14.19,
+   "new_at": 8.53
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-30 dB proti řeči) ztišen o 15 dB",
+   "start": 15.99,
+   "end": 16.76,
+   "new_at": 11.32
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-28 dB proti řeči) ztišen o 15 dB",
+   "start": 18.17,
+   "end": 18.6,
+   "new_at": 13.5
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-36 dB proti řeči) ztišen o 15 dB",
+   "start": 19.43,
+   "end": 20.17,
+   "new_at": 14.76
+  },
+  {
+   "typ": "ticho",
+   "text": "ticho na konci",
+   "start": 24.57,
+   "end": 26.539,
+   "new_at": 19.9
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "jinak",
+   "text": "dělají  (scénář: udělají)",
+   "start": 12.189,
+   "end": 12.449,
+   "new_at": 7.519
+  },
+  {
+   "typ": "chybi",
+   "text": "Já tomu říkám",
+   "start": 18.113,
+   "end": 18.613,
+   "new_at": 13.443
+  }
+ ],
+ "prepis": "V houští, ehm, v houští to hezky voní a zpívají tu ptáčci. Pár lidí tu má svou zašívárnu. Občas si dělají táborák. Někdo se sem chodí seznámit. Říkají tomu cruising, kvíření. Občas spolu skončí v houští a myslí si, že je nevidím.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "v houští to hezky voní a zpívají tu ptáčci. Pár lidí tu má svou zašívárnu. Občas si dělají táborák. Někdo se sem chodí seznámit. Říkají tomu cruising, kvíření. Občas spolu skončí v houští a myslí si, že je nevidím."
+}

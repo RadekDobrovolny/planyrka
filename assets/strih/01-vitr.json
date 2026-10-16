@@ -1,0 +1,34 @@
+{
+ "zdroj": "assets/puvodni/01-vitr.m4a",
+ "vystup": "assets/strih/01-vitr.flac",
+ "delka_pred": 20.31,
+ "delka_po": 20.31,
+ "zasahy": [
+  {
+   "typ": "nadech",
+   "text": "nádech (-40 dB proti řeči) ztišen o 15 dB",
+   "start": 15.23,
+   "end": 16.93,
+   "new_at": 15.23
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-46 dB proti řeči) ztišen o 15 dB",
+   "start": 19.76,
+   "end": 20.3,
+   "new_at": 19.76
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "navic",
+   "text": "A nebo",
+   "start": 6.443,
+   "end": 6.803,
+   "new_at": 6.443
+  }
+ ],
+ "prepis": "Pohyb vzduchových hmot vyvolaný především rozdíly atmosférického tlaku. A nebo přírodní jev vznikající v důsledku nerovnoměrného zahřívání zemského povrchu a následného vzniku tlakových rozdílů v atmosféře. Ale většina z vás mi říká prostě vítr.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "Pohyb vzduchových hmot vyvolaný především rozdíly atmosférického tlaku. A nebo přírodní jev vznikající v důsledku nerovnoměrného zahřívání zemského povrchu a následného vzniku tlakových rozdílů v atmosféře. Ale většina z vás mi říká prostě vítr."
+}

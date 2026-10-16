@@ -1,0 +1,244 @@
+{
+ "zdroj": "assets/puvodni/10-vyhlidka.m4a",
+ "vystup": "assets/strih/10-vyhlidka.flac",
+ "delka_pred": 54.7,
+ "delka_po": 45.23,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 1.5,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-45 dB proti řeči) ztišen o 15 dB",
+   "start": 3.28,
+   "end": 3.59,
+   "new_at": 1.78
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-29 dB proti řeči) ztišen o 15 dB",
+   "start": 4.5,
+   "end": 4.65,
+   "new_at": 3.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-46 dB proti řeči) ztišen o 15 dB",
+   "start": 8.95,
+   "end": 9.73,
+   "new_at": 7.45
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-33 dB proti řeči) ztišen o 15 dB",
+   "start": 12.26,
+   "end": 14.03,
+   "new_at": 10.76
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-44 dB proti řeči) ztišen o 15 dB",
+   "start": 15.21,
+   "end": 15.39,
+   "new_at": 13.71
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-49 dB proti řeči) ztišen o 15 dB",
+   "start": 16.53,
+   "end": 17.43,
+   "new_at": 15.03
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-49 dB proti řeči) ztišen o 15 dB",
+   "start": 18.81,
+   "end": 19.01,
+   "new_at": 17.31
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-44 dB proti řeči) ztišen o 15 dB",
+   "start": 25.21,
+   "end": 25.89,
+   "new_at": 23.71
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-37 dB proti řeči) ztišen o 15 dB",
+   "start": 32.33,
+   "end": 33.22,
+   "new_at": 30.83
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-28 dB proti řeči) ztišen o 15 dB",
+   "start": 36.37,
+   "end": 39.29,
+   "new_at": 34.87
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-48 dB proti řeči) ztišen o 15 dB",
+   "start": 40.75,
+   "end": 41.2,
+   "new_at": 39.25
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-48 dB proti řeči) ztišen o 15 dB",
+   "start": 43.29,
+   "end": 43.46,
+   "new_at": 41.79
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-43 dB proti řeči) ztišen o 15 dB",
+   "start": 44.48,
+   "end": 45.84,
+   "new_at": 42.98
+  },
+  {
+   "typ": "opakovani",
+   "text": "Tak se tu mějte.",
+   "start": 44.63,
+   "end": 50.29,
+   "new_at": 43.13
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-30 dB proti řeči) ztišen o 15 dB",
+   "start": 46.85,
+   "end": 50.64,
+   "new_at": 43.13
+  },
+  {
+   "typ": "ticho",
+   "text": "ticho na konci",
+   "start": 52.41,
+   "end": 54.699,
+   "new_at": 45.225
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "navic",
+   "text": "Tady je pít vedle píky.",
+   "start": 3.641,
+   "end": 5.602,
+   "new_at": 2.141
+  },
+  {
+   "typ": "navic",
+   "text": "A",
+   "start": 7.042,
+   "end": 7.062,
+   "new_at": 5.542
+  },
+  {
+   "typ": "jinak",
+   "text": "planírka  (scénář: Planýrka)",
+   "start": 7.663,
+   "end": 8.103,
+   "new_at": 6.163
+  },
+  {
+   "typ": "jinak",
+   "text": "jak  (scénář: jako)",
+   "start": 8.143,
+   "end": 8.263,
+   "new_at": 6.643
+  },
+  {
+   "typ": "jinak",
+   "text": "dlaní.  (scénář: dlani.)",
+   "start": 8.423,
+   "end": 8.743,
+   "new_at": 6.923
+  },
+  {
+   "typ": "chybi",
+   "text": "Všechno nejlepší, Romane.",
+   "start": 12.204,
+   "end": 12.704,
+   "new_at": 10.704
+  },
+  {
+   "typ": "navic",
+   "text": "voda,",
+   "start": 22.728,
+   "end": 23.048,
+   "new_at": 21.228
+  },
+  {
+   "typ": "navic",
+   "text": "vzpomínky,",
+   "start": 25.949,
+   "end": 26.689,
+   "new_at": 24.449
+  },
+  {
+   "typ": "navic",
+   "text": "univerzální hnití ptáci,",
+   "start": 27.449,
+   "end": 29.05,
+   "new_at": 25.949
+  },
+  {
+   "typ": "navic",
+   "text": "stromy, bylinky další",
+   "start": 29.95,
+   "end": 31.651,
+   "new_at": 28.45
+  },
+  {
+   "typ": "jinak",
+   "text": "entity.  (scénář: bylinky.)",
+   "start": 31.751,
+   "end": 32.131,
+   "new_at": 30.251
+  },
+  {
+   "typ": "jinak",
+   "text": "proto  (scénář: pro)",
+   "start": 33.531,
+   "end": 33.792,
+   "new_at": 32.031
+  },
+  {
+   "typ": "chybi",
+   "text": "to",
+   "start": 33.792,
+   "end": 34.292,
+   "new_at": 32.292
+  },
+  {
+   "typ": "chybi",
+   "text": "Tady",
+   "start": 36.212,
+   "end": 36.712,
+   "new_at": 34.712
+  },
+  {
+   "typ": "chybi",
+   "text": "peak, tady Píky, tady v píči. Jé,",
+   "start": 39.433,
+   "end": 39.933,
+   "new_at": 37.933
+  },
+  {
+   "typ": "navic",
+   "text": "Ahojte.",
+   "start": 51.197,
+   "end": 51.438,
+   "new_at": 44.037
+  }
+ ],
+ "prepis": "A tady už jsme na vrcholu. Tady je pít vedle píky. A je tu celá planírka jak na dlaní. A k tomu jedenáct brněnských dominant. Vágní prostor, tak tomu říkají. A přitom jsou tu všichni. Lidi, auta, keře, berušky, voda, zajíci, šneci. vzpomínky, univerzální hnití ptáci, stromy, bylinky a další entity. Mají proto mraky slov, ale pořád je to málo. Je, hele, chřástal. Ahoj, kamaráde, počkej, letím s tebou. Tak se tu mějte. Tak se tu mějte. Ahojte.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "A tady už jsme na vrcholu. Tady je pít vedle píky. A je tu celá planírka jak na dlaní. A k tomu jedenáct brněnských dominant. Vágní prostor, tak tomu říkají. A přitom jsou tu všichni. Lidi, auta, keře, berušky, voda, zajíci, šneci. vzpomínky, univerzální hnití ptáci, stromy, bylinky a další entity. Mají proto mraky slov, ale pořád je to málo. Je, hele, chřástal. Ahoj, kamaráde, počkej, letím s tebou. Tak se tu mějte. Ahojte."
+}

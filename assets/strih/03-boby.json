@@ -1,0 +1,104 @@
+{
+ "zdroj": "assets/puvodni/03-boby.m4a",
+ "vystup": "assets/strih/03-boby.flac",
+ "delka_pred": 24.32,
+ "delka_po": 17.06,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 5.7,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-42 dB proti řeči) ztišen o 15 dB",
+   "start": 7.94,
+   "end": 8.29,
+   "new_at": 2.24
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-47 dB proti řeči) ztišen o 15 dB",
+   "start": 14.0,
+   "end": 15.04,
+   "new_at": 8.3
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-41 dB proti řeči) ztišen o 15 dB",
+   "start": 18.38,
+   "end": 18.8,
+   "new_at": 12.68
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-43 dB proti řeči) ztišen o 15 dB",
+   "start": 19.45,
+   "end": 20.19,
+   "new_at": 13.75
+  },
+  {
+   "typ": "ticho",
+   "text": "ticho na konci",
+   "start": 22.76,
+   "end": 24.32,
+   "new_at": 17.06
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "jinak",
+   "text": "otřít  (scénář: opřít)",
+   "start": 6.746,
+   "end": 7.026,
+   "new_at": 1.046
+  },
+  {
+   "typ": "jinak",
+   "text": "Bobby  (scénář: Boby)",
+   "start": 9.828,
+   "end": 10.048,
+   "new_at": 4.128
+  },
+  {
+   "typ": "navic",
+   "text": "do",
+   "start": 15.473,
+   "end": 15.533,
+   "new_at": 9.773
+  },
+  {
+   "typ": "jinak",
+   "text": "něho  (scénář: dunělo)",
+   "start": 15.573,
+   "end": 15.753,
+   "new_at": 9.873
+  },
+  {
+   "typ": "jinak",
+   "text": "Ale  (scénář: A)",
+   "start": 18.876,
+   "end": 19.016,
+   "new_at": 13.176
+  },
+  {
+   "typ": "jinak",
+   "text": "nablízkanost  (scénář: nablýskanost)",
+   "start": 20.277,
+   "end": 21.077,
+   "new_at": 14.577
+  },
+  {
+   "typ": "jinak",
+   "text": "ošumtěla.  (scénář: ošuntěla.)",
+   "start": 21.177,
+   "end": 21.818,
+   "new_at": 15.477
+  }
+ ],
+ "prepis": "Tady se můžu otřít do velké stěny. Tady jsem v centru. Bobby centru. Přespí tu boháči i dělníci. Dřív tu do něho i techno. To byla apokalypsa. Ale teď nablízkanost ošumtěla.",
+ "vyrazeno_z_prepisu": [],
+ "text_po_strihu": "Tady se můžu otřít do velké stěny. Tady jsem v centru. Bobby centru. Přespí tu boháči i dělníci. Dřív tu do něho i techno. To byla apokalypsa. Ale teď nablízkanost ošumtěla."
+}

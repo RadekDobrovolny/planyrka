@@ -1,0 +1,8 @@
+# systém a nástroje
+.DS_Store
+__pycache__/
+
+# Originály a prostříhané nahrávky se na web nenasazují (viz .github/workflows/pages.yml),
+# ale v repozitáři by byly vidět. Pokud je nechceš ve veřejném repozitáři, odkomentuj:
+# assets/puvodni/
+# assets/strih/

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontrola střihu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1b1410;
+      --ink-soft: rgba(27, 20, 16, .66);
+      --line: rgba(27, 20, 16, .2);
+      --paper: rgba(255, 250, 242, .55);
+      --cut: #8a2f1c;
+      --soft: #5a5145;
+      --check: #6b4d12;
+      --ok: #2f5d33;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: #a97b52 url("assets/karton.webp") center / cover fixed;
+      color: var(--ink);
+      font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      padding: 32px 16px 64px;
+    }
+    main { max-width: 860px; margin: 0 auto; }
+    h1, h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; margin: 0; }
+    h1 { font-size: 2.4rem; }
+    .intro { color: var(--ink-soft); margin: .4em 0 1.8em; max-width: 46em; }
+    .intro b { color: var(--ink); }
+
+    .scene { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+    .scene header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    .scene h2 { font-size: 1.6rem; }
+    .dur { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .done { margin-left: auto; display: inline-flex; gap: 6px; align-items: center; color: var(--ink-soft); cursor: pointer; }
+    .scene.is-done { opacity: .62; }
+
+    .players { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin: 12px 0 6px; }
+    .players label { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+    audio { width: 100%; height: 36px; }
+
+    h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); margin: 16px 0 6px; font-weight: 600; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li { display: grid; grid-template-columns: 74px 1fr auto; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px solid var(--line); }
+    li:first-child { border-top: 0; }
+    .tag { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding: 2px 6px; border-radius: 4px; justify-self: start; }
+    .tag.cut { color: #fff; background: var(--cut); }
+    .tag.silence, .tag.breath { color: #fff; background: var(--soft); }
+    .tag.check { color: #fff; background: var(--check); }
+    .txt { min-width: 0; }
+    .txt small { display: block; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .btns { display: flex; gap: 6px; }
+    button.seg {
+      font: inherit; font-size: .82rem; padding: 4px 10px; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--line); background: rgba(255, 255, 255, .5); color: var(--ink); white-space: nowrap;
+    }
+    button.seg:hover { background: rgba(255, 255, 255, .85); }
+    button.seg.is-playing { background: var(--ink); color: #fff; border-color: var(--ink); }
+    details summary { cursor: pointer; color: var(--ink-soft); margin-top: 14px; }
+    .none { color: var(--ink-soft); font-style: italic; padding: 4px 0; }
+    .final { margin-top: 14px; color: var(--ink-soft); font-size: .92rem; }
+    .final b { color: var(--ink); font-weight: 600; }
+    @media (max-width: 640px) {
+      .players { grid-template-columns: 1fr; }
+      li { grid-template-columns: 1fr auto; }
+      .tag { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Kontrola střihu</h1>
+    <p class="intro">
+      <b>Vystřiženo</b> je jen to, co se hned potom zopakovalo (zůstala poslední verze), „ehm“ a ticho na začátku a konci.
+      <b>Nádechy</b> nejsou vystřižené, jen ztišené o 15 dB. <b>Ke kontrole</b> jsou místa, kde se nahrávka liší od scénáře –
+      často je to jen chyba automatického přepisu, stačí poslechnout. Tlačítka přehrají jen dané místo.
+    </p>
+    <div id="scenes"></div>
+  </main>
+
+  <script src="data/scenes.js?v=4"></script>
+  <script>
+    (function () {
+      'use strict';
+      const LABEL = { opakovani: 'přeřek', rucne: 'ručně', ehm: 'ehm', ticho: 'ticho', nadech: 'nádech', navic: 'navíc', chybi: 'chybí', jinak: 'jinak' };
+      const fmt = (t) => t.toFixed(1).replace('.', ',') + ' s';
+      const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const store = {
+        get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* bez úložiště */ } },
+      };
+
+      // přehrání jednoho úseku; spuštění dalšího zastaví předchozí
+      let current = null;
+      function stopCurrent() {
+        if (!current) return;
+        current.audio.pause();
+        current.btn.classList.remove('is-playing');
+        clearInterval(current.timer);
+        current = null;
+      }
+      function playSegment(audio, btn, from, to) {
+        const same = current && current.btn === btn;
+        stopCurrent();
+        if (same) return;                                   // druhé kliknutí = stop
+        const seg = { audio, btn, timer: null };
+        current = seg;
+        btn.classList.add('is-playing');
+        const start = () => {
+          if (current !== seg) return;
+          audio.currentTime = Math.max(0, from);
+          audio.play().then(() => {
+            seg.timer = setInterval(() => {
+              if (audio.currentTime >= to || audio.paused) { if (current === seg) stopCurrent(); }
+            }, 50);
+          }).catch(() => { if (current === seg) stopCurrent(); });
+        };
+        // skočit na místo lze až po načtení informací o nahrávce
+        if (audio.readyState >= 1) start();
+        else { audio.addEventListener('loadedmetadata', start, { once: true }); audio.load(); }
+      }
+
+      function item(tagClass, label, text, meta, buttons) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="tag ${tagClass}">${label}</span><span class="txt">${esc(text)}<small>${meta}</small></span><span class="btns"></span>`;
+        buttons.forEach((b) => li.querySelector('.btns').append(b));
+        return li;
+      }
+
+      function segButton(label, audio, from, to) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'seg'; b.textContent = label;
+        b.addEventListener('click', () => playSegment(audio, b, from, to));
+        return b;
+      }
+
+      async function render(scene) {
+        if (!scene.image) return null;
+        const slug = scene.image.split('/').pop().replace(/\.\w+$/, '');
+        let r;
+        try {
+          const res = await fetch(`assets/strih/${slug}.json`, { cache: 'no-cache' });
+          if (!res.ok) return null;
+          r = await res.json();
+        } catch (e) { return null; }
+
+        const el = document.createElement('section');
+        el.className = 'scene';
+        const doneKey = `strih-hotovo-${slug}`;
+        el.innerHTML = `
+          <header>
+            <h2>${esc(scene.title || slug)}</h2>
+            <span class="dur">${fmt(r.delka_pred)} → ${fmt(r.delka_po)}</span>
+            <label class="done"><input type="checkbox"> zkontrolováno</label>
+          </header>
+          <div class="players">
+            <div><label>Původní</label><audio controls preload="metadata" src="${r.zdroj}"></audio></div>
+            <div><label>Prostříhaná</label><audio controls preload="metadata" src="${r.vystup}?t=${Date.now()}"></audio></div>
+          </div>`;
+        const [orig, cut] = el.querySelectorAll('audio');
+        const done = el.querySelector('.done input');
+        done.checked = store.get(doneKey) === '1';
+        el.classList.toggle('is-done', done.checked);
+        done.addEventListener('change', () => { store.set(doneKey, done.checked ? '1' : '0'); el.classList.toggle('is-done', done.checked); });
+
+        // vystřižené
+        const cuts = r.zasahy.filter((e) => e.typ !== 'nadech');
+        const h1 = document.createElement('h3'); h1.textContent = 'Vystřiženo'; el.append(h1);
+        const ul1 = document.createElement('ul');
+        cuts.forEach((e) => {
+          const len = e.end - e.start;
+          const btns = [segButton('▶ původní', orig, e.start - 1.5, e.end + 1.2)];
+          if (e.typ !== 'ticho' || e.start > 0) btns.push(segButton('▶ po střihu', cut, e.new_at - 2.5, e.new_at + 2.5));
+          else btns.push(segButton('▶ po střihu', cut, 0, 3));
+          const quoted = e.typ === 'opakovani' || e.typ === 'ehm';
+        ul1.append(item(e.typ === 'ticho' ? 'silence' : 'cut', LABEL[e.typ], quoted ? `„${e.text}“` : e.text,
+            `${fmt(e.start)} – ${fmt(e.end)} v původní (${fmt(len)})`, btns));
+        });
+        if (!cuts.length) ul1.innerHTML = '<li class="none">nic</li>';
+        el.append(ul1);
+
+        // ke kontrole
+        const h2 = document.createElement('h3'); h2.textContent = 'Ke kontrole'; el.append(h2);
+        const ul2 = document.createElement('ul');
+        r.ke_kontrole.forEach((e) => {
+          const note = e.typ === 'navic' ? 'řečeno navíc proti scénáři' : e.typ === 'chybi' ? 've scénáři je, v nahrávce ne' : 'řečeno jinak (nebo chyba přepisu)';
+          ul2.append(item('check', LABEL[e.typ], e.text, `${note} · ${fmt(e.new_at)}`,
+            [segButton('▶ poslechnout', cut, e.new_at - 1.5, e.new_at + 2)]));
+        });
+        if (!r.ke_kontrole.length) ul2.innerHTML = '<li class="none">nic</li>';
+        el.append(ul2);
+
+        // nádechy
+        const breaths = r.zasahy.filter((e) => e.typ === 'nadech');
+        if (breaths.length) {
+          const det = document.createElement('details');
+          det.innerHTML = `<summary>Ztišené nádechy (${breaths.length})</summary>`;
+          const ul3 = document.createElement('ul');
+          breaths.forEach((e) => ul3.append(item('breath', 'nádech', e.text, `${fmt(e.start)} v původní`, [
+            segButton('▶ původní', orig, e.start - 0.8, e.end + 0.8),
+            segButton('▶ po', cut, e.new_at - 0.8, e.new_at + (e.end - e.start) + 0.8),
+          ])));
+          det.append(ul3);
+          el.append(det);
+        }
+
+        const fin = document.createElement('p');
+        fin.className = 'final';
+        fin.innerHTML = `<b>Text po střihu (automatický přepis):</b> ${esc(r.text_po_strihu)}`;
+        el.append(fin);
+        return el;
+      }
+
+      (async () => {
+        const root = document.getElementById('scenes');
+        for (const scene of window.SCENES || []) {
+          const el = await render(scene);
+          if (el) root.append(el);
+        }
+      })();
+    })();
+  </script>
+</body>
+</html>

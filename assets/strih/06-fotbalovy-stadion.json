@@ -1,0 +1,122 @@
+{
+ "zdroj": "assets/puvodni/06-fotbalovy-stadion.m4a",
+ "vystup": "assets/strih/06-fotbalovy-stadion.flac",
+ "delka_pred": 30.72,
+ "delka_po": 21.59,
+ "zasahy": [
+  {
+   "typ": "ticho",
+   "text": "ticho na začátku",
+   "start": 0.0,
+   "end": 3.43,
+   "new_at": 0.0
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-46 dB proti řeči) ztišen o 15 dB",
+   "start": 5.59,
+   "end": 6.05,
+   "new_at": 2.16
+  },
+  {
+   "typ": "opakovani",
+   "text": "Byli tu všichni a fandělo se i na...",
+   "start": 5.8,
+   "end": 9.08,
+   "new_at": 2.37
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-41 dB proti řeči) ztišen o 15 dB",
+   "start": 8.25,
+   "end": 9.35,
+   "new_at": 2.37
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-45 dB proti řeči) ztišen o 15 dB",
+   "start": 12.29,
+   "end": 13.49,
+   "new_at": 5.58
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-35 dB proti řeči) ztišen o 15 dB",
+   "start": 17.88,
+   "end": 18.66,
+   "new_at": 11.17
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-35 dB proti řeči) ztišen o 15 dB",
+   "start": 19.47,
+   "end": 19.62,
+   "new_at": 12.76
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-55 dB proti řeči) ztišen o 15 dB",
+   "start": 22.0,
+   "end": 22.27,
+   "new_at": 15.29
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-30 dB proti řeči) ztišen o 15 dB",
+   "start": 22.89,
+   "end": 23.08,
+   "new_at": 16.18
+  },
+  {
+   "typ": "nadech",
+   "text": "nádech (-38 dB proti řeči) ztišen o 15 dB",
+   "start": 24.17,
+   "end": 25.1,
+   "new_at": 17.46
+  },
+  {
+   "typ": "ticho",
+   "text": "ticho na konci",
+   "start": 28.32,
+   "end": 30.72,
+   "new_at": 21.585
+  }
+ ],
+ "ke_kontrole": [
+  {
+   "typ": "jinak",
+   "text": "fandělo  (scénář: fandilo)",
+   "start": 10.487,
+   "end": 10.847,
+   "new_at": 3.777
+  },
+  {
+   "typ": "jinak",
+   "text": "papese,  (scénář: Papasan.)",
+   "start": 19.673,
+   "end": 20.173,
+   "new_at": 12.963
+  },
+  {
+   "typ": "jinak",
+   "text": "urbí  (scénář: Urbi)",
+   "start": 20.874,
+   "end": 21.154,
+   "new_at": 14.164
+  },
+  {
+   "typ": "jinak",
+   "text": "orbí,  (scénář: orbi.)",
+   "start": 21.454,
+   "end": 21.754,
+   "new_at": 14.744
+  }
+ ],
+ "prepis": "Tady se dřív hrával fotbal. Byli tu všichni a fandělo se i na... Byli tu všichni a fandělo se i na stráních okolo. Teď už se tu jen vzpomíná. Mezitím akáty trhají beton. Pajasan, papese, urbí et orbí, urbex a čurbes. Strohá struktura stadionu.",
+ "vyrazeno_z_prepisu": [
+  "www",
+  ".hradeckralove",
+  ".org"
+ ],
+ "text_po_strihu": "Tady se dřív hrával fotbal. Byli tu všichni a fandělo se i na stráních okolo. Teď už se tu jen vzpomíná. Mezitím akáty trhají beton. Pajasan, papese, urbí et orbí, urbex a čurbes. Strohá struktura stadionu."
+}
